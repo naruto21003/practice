@@ -7,21 +7,14 @@
 </head>
 <body>
 	<div id="app">
-		<p>{{message}}</p>
-		<input type="text" v-model="message">
-		<button v-on:click="replyMessage">按钮</button>
+		<p v-if="greeting">hello word!</p>
 	</div>
 </body>
 <script type="text/javascript">
 	new Vue({
 		el:"#app",
 		data:{
-			message:"head jdfasdjlaksd jdrlkad"
-		},
-		methods:{
-			replyMessage:function(){
-				this.message=this.message.split("a").reverse().join(",");
-			}
+			greeting:true
 		}
 	})
 </script>

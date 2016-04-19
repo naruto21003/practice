@@ -4,24 +4,24 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<script type="text/javascript" src="vue.js"></script>
+	<style type="text/css">
+		p.m-red{background:red;}
+		.classA{color: green;font-size:20px;}
+		.classb{color: orange;font-size:18px;}
+	</style>
 </head>
 <body>
 	<div id="app">
-		<p>{{message}}</p>
-		<input type="text" v-model="message">
-		<button v-on:click="replyMessage">按钮</button>
+		<p class="m-red" v-bind:class="{'classA':isA,'classB':isB}">{{message}}</p>
 	</div>
 </body>
 <script type="text/javascript">
 	new Vue({
 		el:"#app",
 		data:{
-			message:"head jdfasdjlaksd jdrlkad"
-		},
-		methods:{
-			replyMessage:function(){
-				this.message=this.message.split("a").reverse().join(",");
-			}
+			message:"hello word",
+			isA:true,
+			isB:false
 		}
 	})
 </script>

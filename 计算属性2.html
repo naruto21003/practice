@@ -7,20 +7,20 @@
 </head>
 <body>
 	<div id="app">
-		<p>{{message}}</p>
-		<input type="text" v-model="message">
-		<button v-on:click="replyMessage">按钮</button>
+		<p>{{a}}</p>
+		<p>{{b}}</p>
 	</div>
 </body>
 <script type="text/javascript">
 	new Vue({
 		el:"#app",
 		data:{
-			message:"head jdfasdjlaksd jdrlkad"
+			a:1
 		},
-		methods:{
-			replyMessage:function(){
-				this.message=this.message.split("a").reverse().join(",");
+		computed:{
+			b:function(){
+				this.a = this.a + 1;
+				return this.a;
 			}
 		}
 	})
