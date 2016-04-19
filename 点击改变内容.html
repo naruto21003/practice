@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<ul>
+			<li v-for="tudo in tudos">
+				<p v-on:click="showWrite">{{tudo.text}}</p>
+				<input type="text" v-show="ok" v-model="newtudo">
+			</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript">
+	new Vue({
+		el:"#app",
+		data:{
+			newtudo:" ",
+			tudos:[
+				{text:"1111"},
+				{text:"2222"},
+				{text:"3333"},
+				{text:"4444"},
+				{text:"5555"}
+			],
+			ok:true
+		},
+		methods:{
+			showWrite:function(){
+				
+			}
+		}
+	})
+</script>
+</html>
