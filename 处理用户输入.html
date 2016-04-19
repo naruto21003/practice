@@ -8,7 +8,7 @@
 <body>
 	<div id="app">
 		<p>{{message}}</p>
-		<!-- <input type="text" v-model="message"> -->
+		<input type="text" v-model="message">
 		<button v-on:click="replyMessage">按钮</button>
 	</div>
 </body>
@@ -20,7 +20,7 @@
 		},
 		methods:{
 			replyMessage:function(){
-				this.message=this.message.split(" ").reverse().join(" ");
+				this.message=this.message.split("a").reverse().join(",");
 			}
 		}
 	})
