@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<ul>
+			<li v-for="message in messages">
+				{{message.text}}
+			</li>
+		</ul>
+		<input type="text" v-model="newMessage" v-on:keydown.enter="inpress">
+		<button v-on:click="reply($index)">按钮</button>
+	</div>
+</body>
+<script type="text/javascript">
+	new Vue({
+		el:"#app",
+		data:{
+			newMessage:"",
+			messages:[
+				{text:"11 11 1"},
+				{text:"22 22 2"},
+				{text:"33 33 3"},
+				{text:"44 44 4"},
+				{text:"55 55 5"}
+			]
+		},
+		methods:{
+			inpress:function(){
+				var test=this.newMessage.trim();
+				if(test){
+					this.messages.push({text:test});
+					this.newMessage="";
+				}
+			},
+			reply:function(index){
+				this.messages.splice(index,1);
+			}
+		}
+
+	})
+</script>
+</html>
