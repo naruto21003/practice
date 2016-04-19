@@ -15,8 +15,8 @@
 	<div id="app">
 		<ul>
 			<li v-for="tudo in tudos">
-				<p v-on:click="showWrite(tudo)">{{tudo.text}}</p>
-				<input type="text" v-bind:class="[tudo.isShow ? 'classB' :'classA' ]" v-model="tudo.text" v-on:keyup.enter="reply(tudo)">
+				<p v-on:click="showWrite($index)">{{tudo.text}}</p>
+				<input type="text" v-bind:class="[currentIndex == $index ? 'classB' :'classA' ]" v-model="tudo.text" v-on:keyup.enter="reply($index)">
 			</li>
 		</ul>
 	</div>
@@ -26,19 +26,20 @@
 		el:"#app",
 		data:{
 			tudos:[
-				{text:"1111" ,isShow: true},
-				{text:"2222" ,isShow: false},
-				{text:"3333",isShow: false},
-				{text:"4444",isShow: true},
-				{text:"5555",isShow: false}
+				{text:"1111"},
+				{text:"2222"},
+				{text:"3333"},
+				{text:"4444"},
+				{text:"5555"}
 			],
+			currentIndex:-1
 		},
 		methods:{
-			showWrite:function(a){
-				a.isShow=!a.isShow;
+			showWrite:function(index){
+				this.currentIndex=index;
 			},
-			reply:function(a){
-				a.isShow=!a.isShow;
+			reply:function(index){
+				this.currentIndex=-1;
 			}
 		}
 	})
