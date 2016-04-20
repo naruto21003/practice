@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<p>message is :{{message | json}}</p>
+		<as></as>
+	</div>
+	<!-- 子组建 -->
+	<template id="cApp">
+		<input type="text" v-model="msg">
+		<button v-on:click="reply">提交</button>
+	</template>
+</body>
+<script type="text/javascript">
+	Vue.component("as",{
+		template:"#cApp",
+		data:function(){
+			return {msg:"hi"}
+		},
+		methods:{
+			reply:function(){
+				if(this.msg.trim()){
+					this.$dispatch("cMsg",this.msg);
+					this.msg="";
+				}			
+			}
+		}
+	})
+	new Vue({
+		el:"#app",
+		data:{
+			message:[]
+		},
+		events:{
+			"cMsg":function(msg){
+				this.message.push(msg);
+			}
+		}
+
+	})
+</script>
+</html>
