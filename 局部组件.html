@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<sa></sa>
+	</div>
+</body>
+<script type="text/javascript">
+var child=Vue.extend({
+	template:"<div>hfsdfkjsdkfhjskd</div>"
+});
+var oDiv=Vue.extend({
+	template:"<my-component></my-component>",
+	components:{
+		"my-component":child
+	}
+})
+Vue.component("sa",oDiv)
+new Vue({
+	el:"#app"
+})
+</script>
+</html>

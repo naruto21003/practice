@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<sa></sa>
+	</div>
+</body>
+<script type="text/javascript">
+Vue.component("sa",{
+	template:"<my-component></my-component>",
+	components:{
+		"my-component":{
+			template:"<div>fhjdskhfkjshfksjdh</div>"
+		}
+	}
+})
+new Vue({
+	el:"#app"
+})
+</script>
+</html>
