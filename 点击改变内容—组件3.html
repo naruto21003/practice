@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+	<style type="text/css">
+		.classA{display: none;}
+		.classB{display: block;}
+		li{position: relative;}
+		input{position: absolute;top:0;left:0;}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<as></as>
+	</div>
+	<template id="cApp">
+		<ul>
+			<li  v-for="tudo in tudos">
+				<bs v-bind:my-message="tudo"></bs>
+			</li>
+		</ul>
+	</template>
+	<template id="ccApp">
+		<p v-on:click="showWrite(myMessage)">{{myMessage.text}}</p>
+		<input type="text" v-bind:class="[myMessage.isShow ? 'classB' :'classA' ]" v-model="myMessage.text" v-on:keyup.enter="reply(myMessage)">
+	</template>
+</body>
+<script type="text/javascript">
+Vue.component("bs",{
+	template:"#ccApp",
+	props:["myMessage"],
+	methods:{
+		showWrite:function(a){
+			a.isShow=!a.isShow;
+		},
+		reply:function(a){
+			a.isShow=!a.isShow;
+		}
+	}
+});
+Vue.component("as",{
+	template:"#cApp",
+	data:function(){
+		return {
+			tudos:[
+				{text:"1111" ,isShow: true},
+				{text:"2222" ,isShow: false},
+				{text:"3333",isShow: false},
+				{text:"4444",isShow: true},
+				{text:"5555",isShow: false}
+			]
+		}
+	}
+});
+	new Vue({
+		el:"#app"
+		
+	})
+</script>
+</html>
