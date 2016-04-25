@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="todo.css">
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="text" placeholder="请输入" v-model="message" class="ibtn"  v-on:keyup.enter="addElement">
+		<ul>
+			<li v-for="todo in todos">
+				<span v-bind:class="[todo.isSel? 'sel-btn':'nosel-btn']" v-on:click="invalidElement(todo)"></span>
+				<span v-on:click="changeContent($index)" v-bind:class="[todo.isSel? 'dropLi':'saveLi']">{{todo.text}}</span>
+				<input type="text" v-model="todo.text" class="change-btn" v-bind:class="[currentIndex == $index ? 'showBtn' :'hideBtn' ]" v-on:keyup.enter="saveContent">
+				<i v-on:click="rmElement($index)">delete</i>
+			</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript">
+	new Vue({
+		el:"#app",
+		data:{
+			todos:[
+				{text:"11111111",isSel:false},
+				{text:"22222222",isSel:false},
+				{text:"33333333",isSel:false},
+				{text:"44444444",isSel:false}
+			],
+			message:"",
+			currentIndex:-1
+		},
+		methods:{
+			addElement:function(){
+				var text=this.message.trim();
+				if(text){
+					this.todos.push({text:text,isSel:false});
+					this.message="";
+				}
+			},
+			rmElement:function(index){
+				this.todos.splice(index,1);
+			},
+			changeContent:function(index){
+				this.currentIndex=index;
+			},
+			saveContent:function(){
+				this.currentIndex=-1;
+			},
+			invalidElement:function(datas){
+				datas.isSel=!datas.isSel;
+			}
+		}
+	})
+</script>
+</html>

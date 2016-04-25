@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="todo.css">
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<todo-list></todo-list>
+	</div>
+	<template id="todoList">
+		<input type="text" placeholder="请输入" v-model="message" class="ibtn"  v-on:keyup.enter="addElement">
+		<ul>
+			<li v-for="todo in todos">
+				<todo-content v-bind:my-message="todo" v-on:msghandler="handleIt($index)"><todo-content>
+			</li>
+		</ul>
+	</template>
+
+	<template id="todoContent">
+		<div>
+			<span v-bind:class="[myMessage.isSel? 'sel-btn':'nosel-btn']" v-on:click="invalidElement(myMessage)"></span>
+			<span v-on:click="changeContent(myMessage)" v-bind:class="[myMessage.isSel? 'dropLi':'saveLi']">{{myMessage.text}}</span>
+			<input type="text" v-model="myMessage.text" class="change-btn" v-bind:class="[myMessage.isShow ? 'showBtn' :'hideBtn' ]" v-on:keyup.enter="saveContent(myMessage)">
+			<i v-on:click="rmElement">delete</i>
+		</div>
+	</template>
+</body>
+<script type="text/javascript">
+	Vue.component("todo-list",{
+		template:"#todoList",
+		data:function(){
+			return {
+				todos:[
+						{text:"11111111",isSel:false,isShow:false},
+						{text:"22222222",isSel:false,isShow:false},
+						{text:"33333333",isSel:false,isShow:false},
+						{text:"44444444",isSel:false,isShow:false}
+					],
+				message:"",
+			}
+		},
+		methods:{
+			handleIt:function(index){
+				this.todos.splice(index,1);
+			},
+			addElement:function(){
+				var text=this.message.trim();
+				if(text){
+					this.todos.push({text:text,isSel:false});
+					this.message="";
+				}
+			}
+		}
+
+	})
+	Vue.component("todo-content",{
+		template:"#todoContent",
+		props:["myMessage"],
+		methods:{
+			rmElement:function(){
+				this.$dispatch("msghandler",this.myMessage);
+				this.myMessage="";
+				
+			},
+			changeContent:function(todo){
+				todo.isShow=!todo.isShow;
+			},
+			saveContent:function(todo){
+				todo.isShow=!todo.isShow;
+			},
+			invalidElement:function(datas){
+				datas.isSel=!datas.isSel;
+			}
+		}
+
+	})
+
+	new Vue({
+		el:"#app",
+		methods:{
+			
+		}
+	})
+</script>
+</html>

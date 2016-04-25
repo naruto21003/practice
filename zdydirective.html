@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-mplaceholder="message" v-on:focus="getContent" v-on:blur="rmContent" v-model="msg">
+	</div>
+</body>
+<script type="text/javascript">
+	Vue.directive("mplaceholder",function(value){
+		console.log(value);
+		this.el.value=value;
+		this.el.style.color="#ccc";
+	});
+	new Vue({
+		el:"#app",
+		data:{
+			message:"请输入",
+			msg:""
+		},
+		methods:{
+			getContent:function(){
+				console.log("msg1:"+this.msg);
+				console.log("message1:"+this.message);
+				if(this.msg=="请输入" || this.message=="请输入"){
+					this.message="";
+					this.msg="";
+				}
+				
+			},
+			rmContent:function(){
+				console.log("msg2:"+this.msg);
+				console.log("message2:"+this.message);
+				if(this.msg==""){
+					this.message="请输入";
+				}
+				
+				
+			}
+		}
+	})
+</script>
+</html>
