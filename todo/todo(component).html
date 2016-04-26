@@ -11,12 +11,14 @@
 		<todo-list></todo-list>
 	</div>
 	<template id="todoList">
-		<input type="text" placeholder="请输入" v-model="message" class="ibtn"  v-on:keyup.enter="addElement">
-		<ul>
-			<li v-for="todo in todos">
-				<todo-content v-bind:my-message="todo" v-on:msghandler="handleIt($index)"><todo-content>
-			</li>
-		</ul>
+		<div>
+			<input type="text" placeholder="请输入" v-model="message" class="ibtn"  v-on:keyup.enter="addElement">
+			<ul>
+				<li v-for="todo in todos">
+					<todo-content v-bind:my-message="todo" v-on:msghandler="handleIt($index)"><todo-content>
+				</li>
+			</ul>
+		</div>
 	</template>
 
 	<template id="todoContent">

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app" >
+		<p>{{message}}</p>
+		<life-list v-bind:my-message="todo" v-for="todo in todos"></life-list>
+	</div>
+	<template id="lifeList">
+		<ul>
+			<li >
+				{{myMessage.text}}
+			</li>
+		</ul>
+	</template>
+</body>
+<script type="text/javascript">
+	Vue.component("life-list",{
+		template:"#lifeList",
+		props:["myMessage"]
+		
+	})
+	new Vue({
+		el:"#app",
+		data:{
+			message:1,
+			todos:[
+				{text:111},
+				{text:222},
+				{text:333},
+				{text:444},
+				{text:555},
+				{text:666}
+			]
+			
+		
+		},
+		created:function(){
+			alert(111)
+			return this.message++;
+		},
+		beforeCompile:function(){
+			alert(222);
+			this.todos[0].text=777;
+		},
+		ready:function(){
+			alert(444);
+			this.todos[1].text=888;
+		},
+		compiled:function(){
+			alert(666);
+			this.todos[4].text=1000;
+			
+		},
+		beforeDestroy:function(){
+			alert(555);
+			this.todos[3].text=000;
+		},
+		destroyed:function(){
+			alert(333);
+			this.todos[2].text=999;
+		}
+
+	})
+</script>
+</html>

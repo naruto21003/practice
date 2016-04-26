@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<select v-model="lang">
+		  <option selected value="cn">CN</option>
+		  <option value="en">EN</option>
+		</select>
+		<p v-lang="message"></p>
+		<!-- <button v-on:click="changeLanguage">按钮</button> -->
+	</div>
+</body>
+<script type="text/javascript">
+	var lib={
+				en:[
+					{hello:"hello"},
+					{happy:"happy"}
+				],
+				cn:[
+					{hello:"你好"},
+					{happy:"快乐"}
+				]	
+			};
+	Vue.directive("lang",{
+
+		update:function(value){
+			console.log(value.key);
+			// console.log(lib[value.lang][0])
+			//this.el.innerHTML=lib[value.lang][0][value.key];
+			for(var i=0;i<lib[value.lang].length;i++){
+				for (var name in lib[value.lang][i]){
+					if(value.key==name){
+						this.el.innerHTML=lib[value.lang][i][value.key];
+					}
+				}
+			}
+
+		}
+	})
+
+	new Vue({
+		el:"#app",
+		data:{
+			lang:'cn'
+		},
+		computed:{
+			message: function(){
+				return {lang: this.lang, key:'hello'}
+			}
+		}
+
+	})
+</script>
+</html>
