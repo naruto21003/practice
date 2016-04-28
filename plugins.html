@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<button v-tap="reply">按钮</button>
+	</div>
+</body>
+<script type="text/javascript">
+    function formatParams(data) {
+        var arr = [];
+        for (var name in data) {
+            arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
+        }
+        arr.push(("v=" + Math.random()).replace(".",""));
+        return arr.join("&");
+    }
+var myPlugin={};	
+myPlugin.install=function(Vue){
+	Vue.directive("tap",{
+		update:function(){
+			this.el.addEventListener('click',function(options) {
+                options = options || {};
+				options = options.url || {};
+		        options.type = (options.type || "GET").toUpperCase();
+		        options.dataType = options.dataType || "json";
+		        var params = formatParams(options.data);
+
+		        if (window.XMLHttpRequest) {
+		            var xhr = new XMLHttpRequest();
+		        } else { 
+		            var xhr = new ActiveXObject('Microsoft.XMLHTTP');
+		        }
+
+		        xhr.onreadystatechange = function () {
+		            if (xhr.readyState == 4) {
+		                var status = xhr.status;
+		                if (status >= 200 && status < 300) {
+		                    options.success && options.success(xhr.responseText, xhr.responseXML);
+		                } else {
+		                    options.fail && options.fail(status);
+		                }
+		            }
+		        }
+
+
+		        if (options.type == "GET") {
+		            xhr.open("GET", options.url + "?" + params, true);
+		            xhr.send();
+		        } else if (options.type == "POST") {
+		            xhr.open("POST", options.url, true);
+		            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		            xhr.send(params);
+		        }
+                    
+            },false);
+		}
+	})
+
+}
+	Vue.use(myPlugin,{
+		url:"test.txt",
+		type:"get",
+		success:function(){
+			alert(1);
+		},
+		fail:function(){
+			alert(2);
+		}
+	});
+
+	new Vue({
+		el:"#app",
+		methods:{
+			reply:function(){
+				alert(3);
+			}
+		}
+	})
+	
+	
+</script>
+</html>
