@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- <select v-model="firstNumber">
+			<option selected value="a">A</option>
+			<option value="b">B</option>
+		</select> -->
+		<ul>
+			<li v-for="todo in todos | sort">
+				{{todo.text}}
+			</li>
+		</ul>
+	</div>
+</body>
+	<script type="text/javascript">
+		Vue.filter("sort",function(value){
+				//console.log(value);
+				var len=value.length;
+				for(var i=0;i<len-1;i++){
+		            for(var j=0;j<len-1-i;j++){
+		                if(value[j]["text"].substr(0,1)>value[j+1]["text"].substr(0,1)){
+		                    tmp = value[j];
+		                    value[j] = value[j+1];
+		                    value[j+1] = tmp;
+		                }
+		            }
+		        }
+		        return value;
+
+
+				// return tmp>number2? number1:value; 
+				
+		});
+		new Vue({
+			el:"#app",
+			data:{
+				todos:[
+					{text:"ahjhf"},
+					{text:"btr"},
+					{text:"atrtytrf"},
+					{text:"cytrytryf"},
+					{text:"byuytujghjkjhj"},
+					{text:"dhkjkjhkjh"}
+				]
+			}
+		})
+	</script>
+</html>
